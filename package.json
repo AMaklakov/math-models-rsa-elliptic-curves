@@ -1,0 +1,26 @@
+{
+	"name": "rsa",
+	"version": "1.0.0",
+	"description": "hack-rsa-and-elliptic-curves",
+	"main": "src/main.ts",
+	"author": "A.Maklakov",
+	"license": "MIT",
+	"private": false,
+	"scripts": {
+		"prestart": "yarn",
+		"start": "ts-node src/main.ts"
+	},
+	"devDependencies": {
+		"@types/big.js": "^4.0.5",
+		"big.js": "^5.2.2",
+		"cz-conventional-changelog": "3.0.2",
+		"prettier": "^1.19.1",
+		"ts-node": "^8.5.4",
+		"typescript": "^3.7.3"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
+}
