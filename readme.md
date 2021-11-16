@@ -15,10 +15,8 @@ brew install yarn
 
 ## How to run application ?
 
+Open `main.ts` file and change arguments of each function to data of your task. Please change only **numbers**. Don't delete `toBig` wrappers around them
+
 ```bash
 yarn start
 ```
-
-## If you want to change input data to your own values
-
-You should open `src/config.ts` and change data there

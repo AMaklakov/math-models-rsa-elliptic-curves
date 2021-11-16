@@ -20,3 +20,5 @@ export const phi = (n: Big): Big => {
 
 	return result
 }
+
+export const calcEulerFunction = phi
