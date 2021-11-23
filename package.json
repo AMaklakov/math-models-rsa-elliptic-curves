@@ -8,12 +8,17 @@
 	"private": false,
 	"scripts": {
 		"prestart": "yarn",
-		"start": "ts-node src/main.ts"
+		"start": "ts-node src/main.ts",
+		"test": "jest"
 	},
 	"devDependencies": {
+		"@babel/preset-env": "^7.16.4",
+		"@babel/preset-typescript": "^7.16.0",
 		"@types/big.js": "^4.0.5",
+		"@types/jest": "^27.0.3",
 		"big.js": "^5.2.2",
 		"cz-conventional-changelog": "3.0.2",
+		"jest": "^27.3.1",
 		"prettier": "^1.19.1",
 		"ts-node": "^8.5.4",
 		"typescript": "^3.7.3"

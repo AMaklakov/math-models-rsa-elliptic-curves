@@ -1,6 +1,6 @@
 import { solveEllipticCurves } from './elliptic-curves'
 import { hackRSA } from './hack-rsa'
-import { toBig } from './help/helpers'
+import { toBig } from './util/math-over-module'
 
 // Task 1. Hack RSA: replace n, k and codes with your ones
 hackRSA({

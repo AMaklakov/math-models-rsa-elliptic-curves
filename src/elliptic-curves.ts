@@ -1,21 +1,9 @@
-import { calcEulerFunction } from './functions/euler-function'
-import { decrypt } from './functions/cesar-algorithm'
-import { multiply } from './functions/multiply-point-by-number'
-import { getMultiplicand } from './functions/get-multiplicand'
-import { getOrder } from './functions/get-point-order'
-import { toStringPoint } from './help/helpers'
-import { ExistingPoint, Point } from './help/model'
+import { ExistingPoint, getMultiplicand, getPointOrder, multiply2Points, Point, toStringPoint } from './util/points'
 import { Big } from 'big.js'
+import { calcEulerFunction } from './util/math-over-module'
+import { decryptCesarCode } from './cesar-code'
 
-export const solveEllipticCurves = ({
-	point,
-	a,
-	p,
-	alicePoint,
-	bobPoint,
-	langSize,
-	letter,
-}: {
+interface IArguments {
 	point: Point
 	a: Big
 	p: Big
@@ -23,11 +11,13 @@ export const solveEllipticCurves = ({
 	bobPoint: Point
 	langSize: number
 	letter: string
-}) => {
+}
+
+export const solveEllipticCurves = ({ point, a, p, alicePoint, bobPoint, langSize, letter }: IArguments) => {
 	console.group('\n\n------ ELLIPTIC CURVES -------')
 
 	// --- 1 ---
-	const orderP = getOrder({ point, a, p })
+	const orderP = getPointOrder({ point, a, p })
 	console.log(`Order of point ${toStringPoint(point)} is`, orderP)
 
 	// --- 2 ---
@@ -37,15 +27,15 @@ export const solveEllipticCurves = ({
 	console.log(`nAlice: ${nAlice.toString()}, nBob: ${nBob.toString()}`)
 
 	// --- 3 ---
-	const totalPoint = multiply({ point: alicePoint, times: nBob.mod(p), a, p })
-	console.log(`Common point on curve ${toStringPoint(totalPoint)}`)
+	const commonPoint = multiply2Points({ point: alicePoint, times: nBob.mod(p), a, p })
+	console.log(`Common point on curve ${toStringPoint(commonPoint)}`)
 
-	const k = (totalPoint as ExistingPoint).x.mod(langSize)
-	console.log(`Cesar code shift: ${k.toString()}`)
+	const cesarCodeShift = (commonPoint as ExistingPoint).x.mod(langSize)
+	console.log(`Cesar code shift: ${cesarCodeShift.toString()}`)
 
-	const decryptedString = decrypt({
+	const decryptedString = decryptCesarCode({
 		encryptedString: letter,
-		key: k,
+		key: cesarCodeShift,
 		languageLength: langSize,
 		firstLetterCode: 'a'.charCodeAt(0),
 	})
@@ -53,8 +43,17 @@ export const solveEllipticCurves = ({
 
 	// --- 4 ---
 
-	const size = calcEulerFunction(p)
-	console.log(`Number of points on curve = phi(N) = ${size.toString()}`)
+	const eulerFnValue = calcEulerFunction(p)
+	console.log(`Number of points on curve = phi(N) = ${eulerFnValue.toString()}`)
 
 	console.groupEnd()
+	return {
+		orderP,
+		nAlice,
+		nBob,
+		commonPoint,
+		cesarCodeShift,
+		decryptedString,
+		eulerFnValue,
+	}
 }

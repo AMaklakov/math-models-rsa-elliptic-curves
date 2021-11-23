@@ -1,8 +1,6 @@
 import { Big } from 'big.js'
-import { calcEulerFunction } from './functions/euler-function'
-import { getInverseNumber } from './functions/get-inverse-number-by-mod'
-import { ENGLISH_ALPHABET } from './help/english-codes'
-import { toBig } from './help/helpers'
+import { ENGLISH_ALPHABET } from './util/english-codes'
+import { calcEulerFunction, getInverseNumber, toBig } from './util/math-over-module'
 
 export const hackRSA = ({ n, k, codesToTranslate }: { n: Big; k: Big; codesToTranslate: number[] }) => {
 	console.log('------ SIMPLE RSA -------')

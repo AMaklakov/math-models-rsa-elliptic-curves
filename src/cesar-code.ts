@@ -1,15 +1,13 @@
 import { Big } from 'big.js'
-import { toBig } from '../help/helpers'
+import { toBig } from './util/math-over-module'
 
-export interface DecryptArgumentModel {
+export const decryptCesarCode = (args: {
 	encryptedString: string
 	key: Big
 	languageLength: number
 	firstLetterCode: number
-}
-
-export const decrypt = (args: DecryptArgumentModel): string => {
-	return args.encryptedString
+}): string =>
+	args.encryptedString
 		.split('')
 		.map(char => {
 			const code = char.charCodeAt(0) - args.firstLetterCode
@@ -25,4 +23,3 @@ export const decrypt = (args: DecryptArgumentModel): string => {
 			return String.fromCharCode(args.firstLetterCode + newCode)
 		})
 		.join('')
-}
